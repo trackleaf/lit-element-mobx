@@ -3,16 +3,13 @@ import { parse as qsParse } from 'query-string'
 import { Component, html } from '../../components/base'
 import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
 
-const YourFeedTab = props => {
-  if (props.currentUser) {
+const YourFeedTab = ({ currentUser, tab }) => {
+  if (currentUser) {
     return html`
       <li class="nav-item">
         <stencil-route-link
-          anchor-class="nav-link"
-          active-class="active"
-          .isActive=${(match, location) => {
-            return location.search.match('tab=feed') ? 1 : 0
-          }}
+          anchor-class=${`nav-link ${tab === 'feed' ? 'active' : ''}`}
+          url-match="/xxxxx"
           url="/?tab=feed"
           >Your Feed</stencil-route-link
         >
@@ -22,15 +19,13 @@ const YourFeedTab = props => {
   return null
 }
 
-const GlobalFeedTab = props => {
+const GlobalFeedTab = ({ tab }) => {
   return html`
     <li class="nav-item">
       <stencil-route-link
-        anchor-class="nav-link"
-        url-match="/"
+        anchor-class=${`nav-link ${tab === 'all' ? 'active' : ''}`}
+        url-match="/xxxxx"
         url="/?tab=all"
-        active-class="active"
-        .exact=${true}
         >Global Feed</stencil-route-link
       >
     </li>
@@ -118,12 +113,13 @@ class MainView extends Component {
       totalPagesCount
     } = this.context.stores.articlesStore
 
+    const tab = this.getTab()
+
     return html`
       <div>
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
-            ${YourFeedTab({ currentUser, tab: this.getTab() })}
-            ${GlobalFeedTab({ tab: this.getTab() })}
+            ${YourFeedTab({ currentUser, tab })} ${GlobalFeedTab({ tab })}
             ${TagFilterTab({ tag: qsParse(this.location.search).tag })}
           </ul>
         </div>
