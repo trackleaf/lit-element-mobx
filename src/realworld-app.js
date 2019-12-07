@@ -2,7 +2,7 @@ import './components/app-header'
 
 // import PrivateRoute from 'components/PrivateRoute'
 
-// import Login from 'pages/Login'
+import 'pages/login-page'
 import 'pages/Home/home-page'
 // import Register from 'pages/Register'
 import 'pages/Article/article-page'
@@ -41,7 +41,7 @@ class App extends Component {
         <div>
           <app-header></app-header>
           <stencil-route-switch
-            ><stencil-route url="/login" component="login-view"></stencil-route
+            ><stencil-route url="/login" component="login-page"></stencil-route
             ><stencil-route
               url="/register"
               component="register-view"

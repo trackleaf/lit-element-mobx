@@ -8,7 +8,7 @@ const CommentContainer = props => {
     return html`
       <div class="col-xs-12 col-md-8 offset-md-2">
         <div>
-          <list-errors errors=${props.errors}></list-errors>
+          <list-errors .errors=${props.errors}></list-errors>
           <comment-input
             .currentUser=${props.currentUser}
             slug=${props.slug}
