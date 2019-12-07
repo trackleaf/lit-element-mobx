@@ -13,7 +13,7 @@ class ArticlePreview extends Component {
   handleClickFavorite = ev => {
     ev.preventDefault()
     const { article } = this
-    const { articlesStore } = this.context
+    const { articlesStore } = this.context.stores
     if (article.favorited) {
       articlesStore.unmakeFavorite(article.slug)
     } else {
