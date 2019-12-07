@@ -7,7 +7,7 @@ import 'pages/Home/home-page'
 // import Register from 'pages/Register'
 import 'pages/Article/article-page'
 import 'pages/editor-page'
-// import Profile from 'pages/Profile'
+import 'pages/profile-page'
 // import Settings from 'pages/Settings'
 import { Component, html } from './components/base'
 
@@ -60,11 +60,11 @@ class App extends Component {
             ></private-route>
             <stencil-route
               url="/@:username"
-              component="profile-view"
+              component="profile-page"
             ></stencil-route>
             <stencil-route
               url="/@:username/favorites"
-              component="profile-view"
+              component="profile-page"
             ></stencil-route>
             <stencil-route
               url="/"
