@@ -8,7 +8,8 @@ const YourFeedTab = props => {
     return html`
       <li class="nav-item">
         <stencil-route-link
-          class="nav-link"
+          anchor-class="nav-link"
+          active-class="active"
           .isActive=${(match, location) => {
             return location.search.match('tab=feed') ? 1 : 0
           }}

@@ -35,7 +35,7 @@ class ArticlePreview extends Component {
           /></stencil-route-link>
           <div class="info">
             <stencil-route-link
-              class="author"
+              anchor-class="author"
               url=${`/@${article.author.username}`}
               >${article.author.username}</stencil-route-link
             ><span class="date"
@@ -53,7 +53,7 @@ class ArticlePreview extends Component {
         </div>
         <stencil-route-link
           url=${`/article/${article.slug}`}
-          class="preview-link"
+          anchor-class="preview-link"
           ><h1>${article.title}</h1>
           <p>${article.description}</p>
           <span>Read more...</span>

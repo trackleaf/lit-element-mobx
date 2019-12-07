@@ -1,19 +1,21 @@
-import { Component, html } from './base'
+import { Component, html, ifDefined } from './base'
 
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return html`
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <stencil-route-link url="/" class="nav-link">Home</stencil-route-link>
+          <stencil-route-link url="/" anchor-class="nav-link"
+            >Home</stencil-route-link
+          >
         </li>
         <li class="nav-item">
-          <stencil-route-link url="/login" class="nav-link"
+          <stencil-route-link url="/login" anchor-class="nav-link"
             >Sign in</stencil-route-link
           >
         </li>
         <li class="nav-item">
-          <stencil-route-link url="/register" class="nav-link"
+          <stencil-route-link url="/register" anchor-class="nav-link"
             >Sign up</stencil-route-link
           >
         </li>
@@ -28,24 +30,26 @@ const LoggedInView = props => {
     return html`
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <stencil-route-link url="/" class="nav-link">Home</stencil-route-link>
+          <stencil-route-link url="/" anchor-class="nav-link"
+            >Home</stencil-route-link
+          >
         </li>
         <li class="nav-item">
-          <stencil-route-link url="/editor" class="nav-link"
+          <stencil-route-link url="/editor" anchor-class="nav-link"
             ><i class="ion-compose"></i> New Post</stencil-route-link
           >
         </li>
         <li class="nav-item">
-          <stencil-route-link url="/settings" class="nav-link"
+          <stencil-route-link url="/settings" anchor-class="nav-link"
             ><i class="ion-gear-a"></i> Settings</stencil-route-link
           >
         </li>
         <li class="nav-item">
           <stencil-route-link
             url=${`/@${props.currentUser.username}`}
-            class="nav-link"
+            anchor-class="nav-link"
             ><img
-              src=${props.currentUser.image}
+              src=${ifDefined(props.currentUser.image || undefined)}
               class="user-pic"
               alt=""
             />${props.currentUser.username}</stencil-route-link
