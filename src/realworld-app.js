@@ -6,7 +6,7 @@ import 'pages/login-page'
 import 'pages/Home/home-page'
 // import Register from 'pages/Register'
 import 'pages/Article/article-page'
-// import Editor from 'pages/Editor'
+import 'pages/editor-page'
 // import Profile from 'pages/Profile'
 // import Settings from 'pages/Settings'
 import { Component, html } from './components/base'
@@ -48,7 +48,7 @@ class App extends Component {
             ></stencil-route>
             <stencil-route
               url="/editor/:slug?"
-              component="editor-view"
+              component="editor-page"
             ></stencil-route>
             <stencil-route
               url="/article/:id"
