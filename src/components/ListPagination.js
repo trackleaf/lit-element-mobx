@@ -1,43 +1,39 @@
-import React from 'react';
+import { html } from './base'
 
 const ListPagination = props => {
   if (props.totalPagesCount < 2) {
-    return null;
+    return null
   }
 
-  const range = [];
+  const range = []
   for (let i = 0; i < props.totalPagesCount; ++i) {
-    range.push(i);
+    range.push(i)
   }
 
-  return (
+  return html`
     <nav>
-      <ul className="pagination">
+      <ul class="pagination">
+        ${range.map(v => {
+          const isCurrent = v === props.currentPage
 
-        {
-          range.map(v => {
-            const isCurrent = v === props.currentPage;
-            const onClick = ev => {
-              ev.preventDefault();
-              props.onSetPage(v);
-            };
-            return (
-              <li
-                className={ isCurrent ? 'page-item active' : 'page-item' }
-                onClick={onClick}
-                key={v.toString()}
-              >
+          const onClick = ev => {
+            ev.preventDefault()
+            props.onSetPage(v)
+          }
 
-                <a className="page-link" href="">{v + 1}</a>
-
-              </li>
-            );
-          })
-        }
-
+          return html`
+            <li
+              class=${isCurrent ? 'page-item active' : 'page-item'}
+              @click=${onClick}
+              key=${v.toString()}
+            >
+              <a class="page-link" href="">${v + 1}</a>
+            </li>
+          `
+        })}
       </ul>
     </nav>
-  );
-};
+  `
+}
 
-export default ListPagination;
+export default ListPagination

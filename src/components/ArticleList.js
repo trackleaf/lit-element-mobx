@@ -1,40 +1,39 @@
-import ArticlePreview from './ArticlePreview';
-import ListPagination from './ListPagination';
-import LoadingSpinner from './LoadingSpinner';
-import React from 'react';
+import ListPagination from './ListPagination'
+import './article-preview'
+import './loading-spinner'
+import { html, repeat } from './base'
 
-const ArticleList = props => {
-  if (props.loading && props.articles.length === 0) {
-    return (
-      <LoadingSpinner />
-    );
+const ArticleList = ({
+  onSetPage,
+  totalPagesCount,
+  currentPage,
+  articles,
+  loading
+}) => {
+  if (loading && articles.length === 0) {
+    return html`
+      <loading-spinner></loading-spinner>
+    `
   }
 
-  if (props.articles.length === 0) {
-    return (
-      <div className="article-preview">
-        No articles are here... yet.
-      </div>
-    );
+  if (articles.length === 0) {
+    return html`
+      <div class="article-preview">No articles are here... yet.</div>
+    `
   }
 
-  return (
+  return html`
     <div>
-      {
-        props.articles.map(article => {
-          return (
-            <ArticlePreview article={article} key={article.slug} />
-          );
-        })
-      }
-
-      <ListPagination
-        onSetPage={props.onSetPage}
-        totalPagesCount={props.totalPagesCount}
-        currentPage={props.currentPage}
-      />
+      ${repeat(
+        articles,
+        article => article.slug,
+        article => html`
+          <article-preview .article=${article}></article-preview>
+        `
+      )}
+      ${ListPagination({ onSetPage, totalPagesCount, currentPage })}
     </div>
-  );
-};
+  `
+}
 
-export default ArticleList;
+export default ArticleList

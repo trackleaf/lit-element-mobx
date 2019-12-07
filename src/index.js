@@ -34,7 +34,9 @@ useStrict(true)
 
 render(
   html`
-    <realworld-app .stores=${stores}></realworld-app>
+    <stencil-router>
+      <realworld-app .stores=${stores}></realworld-app>
+    </stencil-router>
   `,
   document.getElementById('root')
 )

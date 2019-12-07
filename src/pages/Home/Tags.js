@@ -1,31 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import LoadingSpinner from "components/LoadingSpinner";
+import '../../components/loading-spinner'
+import { html } from 'lit-html'
 
 const Tags = props => {
-  const tags = props.tags;
+  const tags = props.tags
   if (tags) {
-    return (
-      <div className="tag-list">
-        {tags.map(tag => {
-          return (
-            <Link
-              to={{
-                pathname: "/",
-                search: "?tab=tag&tag=" + tag
-              }}
-              className="tag-default tag-pill"
-              key={tag}
+    return html`
+      <div class="tag-list">
+        ${tags.map(tag => {
+          return html`
+            <stencil-route-link
+              url="/?tab=tag&tag=${tag}"
+              class="tag-default tag-pill"
+              key=${tag}
+              >${tag}</stencil-route-link
             >
-              {tag}
-            </Link>
-          );
+          `
         })}
       </div>
-    );
+    `
   } else {
-    return <LoadingSpinner />;
+    return html`
+      <loading-spinner></loading-spinner>
+    `
   }
-};
+}
 
-export default Tags;
+export default Tags

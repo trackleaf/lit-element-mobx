@@ -3,7 +3,7 @@ import './components/app-header'
 // import PrivateRoute from 'components/PrivateRoute'
 
 // import Login from 'pages/Login'
-// import Home from 'pages/Home'
+import './pages/Home/home-page'
 // import Register from 'pages/Register'
 // import Article from 'pages/Article'
 // import Editor from 'pages/Editor'
@@ -20,13 +20,14 @@ class App extends Component {
     stores: { property: 'stores' }
   }
 
-  componentWillMount() {
+  connectedCallback() {
+    super.connectedCallback()
     if (!this.stores.commonStore.token) {
       this.stores.commonStore.setAppLoaded()
     }
   }
 
-  componentDidMount() {
+  updated() {
     if (this.stores.commonStore.token) {
       this.stores.userStore
         .pullUser()
@@ -40,38 +41,37 @@ class App extends Component {
         <div>
           <app-header></app-header>
           <stencil-route-switch
-            ><stencil-route path="/login" component="login-view"></stencil-route
+            ><stencil-route url="/login" component="login-view"></stencil-route
             ><stencil-route
-              path="/register"
+              url="/register"
               component="register-view"
             ></stencil-route>
-            ><stencil-route
-              path="/editor/:slug?"
+            <stencil-route
+              url="/editor/:slug?"
               component="editor-view"
             ></stencil-route>
-            ><stencil-route
-              path="/article/:id"
+            <stencil-route
+              url="/article/:id"
               component="article-view"
             ></stencil-route>
-            ><private-route
-              path="/settings"
+            <private-route
+              url="/settings"
               component="settings-view"
             ></private-route>
-            ><stencil-route
-              path="/@:username"
-              component="profile-view"
-            ></stencil-route>
-            ><stencil-route
-              path="/@:username/favorites"
+            <stencil-route
+              url="/@:username"
               component="profile-view"
             ></stencil-route>
             <stencil-route
-              path="/"
-              component="home-view"
+              url="/@:username/favorites"
+              component="profile-view"
+            ></stencil-route>
+            <stencil-route
+              url="/"
+              component="home-page"
               .exact=${true}
             ></stencil-route>
-            ></stencil-route-switch
-          >
+          </stencil-route-switch>
         </div>
       `
     }
