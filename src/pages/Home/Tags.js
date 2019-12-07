@@ -10,8 +10,7 @@ const Tags = props => {
           return html`
             <stencil-route-link
               url="/?tab=tag&tag=${tag}"
-              class="tag-default tag-pill"
-              key=${tag}
+              anchor-class="tag-default tag-pill"
               >${tag}</stencil-route-link
             >
           `

@@ -17,7 +17,7 @@ class HomePage extends Component {
         ${Banner({ token: token, appName: appName })}
         <div class="container page">
           <div class="row">
-            <home-main-view></home-main-view>
+            <home-main-view class="col-md-9"></home-main-view>
             <div class="col-md-3">
               <div class="sidebar">
                 <p>Popular Tags</p>

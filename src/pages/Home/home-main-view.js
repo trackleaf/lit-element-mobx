@@ -25,11 +25,10 @@ const GlobalFeedTab = props => {
   return html`
     <li class="nav-item">
       <stencil-route-link
-        class="nav-link"
-        .isActive=${(match, location) => {
-          return !location.search.match(/tab=(feed|tag)/) ? 1 : 0
-        }}
+        anchor-class="nav-link"
+        url-match="/"
         url="/?tab=all"
+        active-class="active"
         >Global Feed</stencil-route-link
       >
     </li>
@@ -118,7 +117,7 @@ class MainView extends Component {
     } = this.context.stores.articlesStore
 
     return html`
-      <div class="col-md-9">
+      <div>
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             ${YourFeedTab({ currentUser, tab: this.getTab() })}
