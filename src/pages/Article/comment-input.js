@@ -26,7 +26,7 @@ class CommentInput extends Component {
   render() {
     const { isCreatingComment } = this.context.stores.commentsStore
     return html`
-      <form class="card comment-form" @nsubmit=${this.createComment}>
+      <form class="card comment-form" @submit=${this.createComment}>
         <div class="card-block">
           <textarea
             class="form-control"

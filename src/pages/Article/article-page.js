@@ -23,11 +23,11 @@ class ArticlePage extends Component {
   handleDeleteArticle = slug => {
     this.context.stores.articlesStore
       .deleteArticle(slug)
-      .then(() => this.props.history.replace('/'))
+      .then(() => this.history.replace('/'))
   }
 
   handleDeleteComment = id => {
-    this.props.commentsStore.deleteComment(id)
+    this.context.stores.commentsStore.deleteComment(id)
   }
 
   render() {
@@ -80,7 +80,7 @@ class ArticlePage extends Component {
               errors: commentErrors,
               slug,
               currentUser,
-              onDelete: this.handleDeleteCommen
+              onDelete: this.handleDeleteComment
             })}
           </div>
         </div>
