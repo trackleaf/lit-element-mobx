@@ -34,7 +34,7 @@ useStrict(true)
 
 render(
   html`
-    <stencil-router>
+    <stencil-router history-type="hash">
       <realworld-app .stores=${stores}></realworld-app>
     </stencil-router>
   `,
