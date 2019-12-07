@@ -30,7 +30,7 @@ module.exports = {
     ]
   },
   resolve: {
-    alias: {}
+    modules: [path.resolve(__dirname, './src'), 'node_modules']
   },
   watch: mode === 'development'
 }

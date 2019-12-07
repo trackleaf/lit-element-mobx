@@ -3,9 +3,9 @@ import './components/app-header'
 // import PrivateRoute from 'components/PrivateRoute'
 
 // import Login from 'pages/Login'
-import './pages/Home/home-page'
+import 'pages/Home/home-page'
 // import Register from 'pages/Register'
-// import Article from 'pages/Article'
+import 'pages/Article/article-page'
 // import Editor from 'pages/Editor'
 // import Profile from 'pages/Profile'
 // import Settings from 'pages/Settings'
@@ -52,7 +52,7 @@ class App extends Component {
             ></stencil-route>
             <stencil-route
               url="/article/:id"
-              component="article-view"
+              component="article-page"
             ></stencil-route>
             <private-route
               url="/settings"

@@ -1,32 +1,26 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
+import { html } from 'lit-html'
 
 const ArticleActions = props => {
-  const article = props.article;
-  const handleDelete = () => props.onDelete(article.slug);
+  const article = props.article
+  const handleDelete = () => props.onDelete(article.slug)
 
   if (props.canModify) {
-    return (
-      <span>
-
-        <Link
-          to={`/editor/${article.slug}`}
-          className="btn btn-outline-secondary btn-sm"
-        >
-          <i className="ion-edit" /> Edit Article
-        </Link>
-
-        <button className="btn btn-outline-danger btn-sm" onClick={handleDelete}>
-          <i className="ion-trash-a" /> Delete Article
-        </button>
-
-      </span>
-    );
+    return html`
+      <span
+        ><stencil-route-link
+          url=${`/editor/${article.slug}`}
+          class="btn btn-outline-secondary btn-sm"
+          ><i class="ion-edit"></i> Edit Article</stencil-route-link
+        ><button class="btn btn-outline-danger btn-sm" @click=${handleDelete}>
+          <i class="ion-trash-a"></i> Delete Article
+        </button></span
+      >
+    `
   }
 
-  return (
-    <span />
-  );
-};
+  return html`
+    <span></span>
+  `
+}
 
-export default ArticleActions;
+export default ArticleActions

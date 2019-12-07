@@ -1,49 +1,49 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { inject, observer } from 'mobx-react'
 
-import ListErrors from "components/ListErrors";
+import ListErrors from 'components/list-errors'
 
-@inject("userStore")
+@inject('userStore')
 @observer
 class SettingsForm extends React.Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
-      image: "",
-      username: "",
-      bio: "",
-      email: "",
-      password: ""
-    };
+      image: '',
+      username: '',
+      bio: '',
+      email: '',
+      password: ''
+    }
 
     this.updateState = field => ev => {
-      const state = this.state;
-      const newState = Object.assign({}, state, { [field]: ev.target.value });
-      this.setState(newState);
-    };
+      const state = this.state
+      const newState = Object.assign({}, state, { [field]: ev.target.value })
+      this.setState(newState)
+    }
 
     this.submitForm = ev => {
-      ev.preventDefault();
+      ev.preventDefault()
 
-      const user = Object.assign({}, this.state);
+      const user = Object.assign({}, this.state)
       if (!user.password) {
-        delete user.password;
+        delete user.password
       }
 
-      this.props.onSubmitForm(user);
-    };
+      this.props.onSubmitForm(user)
+    }
   }
 
   componentWillMount() {
     if (this.props.userStore.currentUser) {
       Object.assign(this.state, {
-        image: this.props.userStore.currentUser.image || "",
+        image: this.props.userStore.currentUser.image || '',
         username: this.props.userStore.currentUser.username,
-        bio: this.props.userStore.currentUser.bio || "",
+        bio: this.props.userStore.currentUser.bio || '',
         email: this.props.userStore.currentUser.email
-      });
+      })
     }
   }
 
@@ -57,7 +57,7 @@ class SettingsForm extends React.Component {
               type="text"
               placeholder="URL of profile picture"
               value={this.state.image}
-              onChange={this.updateState("image")}
+              onChange={this.updateState('image')}
             />
           </fieldset>
 
@@ -67,7 +67,7 @@ class SettingsForm extends React.Component {
               type="text"
               placeholder="Username"
               value={this.state.username}
-              onChange={this.updateState("username")}
+              onChange={this.updateState('username')}
             />
           </fieldset>
 
@@ -77,7 +77,7 @@ class SettingsForm extends React.Component {
               rows="8"
               placeholder="Short bio about you"
               value={this.state.bio}
-              onChange={this.updateState("bio")}
+              onChange={this.updateState('bio')}
             ></textarea>
           </fieldset>
 
@@ -87,7 +87,7 @@ class SettingsForm extends React.Component {
               type="email"
               placeholder="Email"
               value={this.state.email}
-              onChange={this.updateState("email")}
+              onChange={this.updateState('email')}
             />
           </fieldset>
 
@@ -97,7 +97,7 @@ class SettingsForm extends React.Component {
               type="password"
               placeholder="New Password"
               value={this.state.password}
-              onChange={this.updateState("password")}
+              onChange={this.updateState('password')}
             />
           </fieldset>
 
@@ -110,16 +110,16 @@ class SettingsForm extends React.Component {
           </button>
         </fieldset>
       </form>
-    );
+    )
   }
 }
 
-@inject("userStore", "authStore")
+@inject('userStore', 'authStore')
 @withRouter
 @observer
 class Settings extends React.Component {
   handleClickLogout = () =>
-    this.props.authStore.logout().then(() => this.props.history.replace("/"));
+    this.props.authStore.logout().then(() => this.props.history.replace('/'))
 
   render() {
     return (
@@ -148,8 +148,8 @@ class Settings extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Settings;
+export default Settings

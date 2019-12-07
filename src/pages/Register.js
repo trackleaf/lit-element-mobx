@@ -1,25 +1,25 @@
-import { Link } from "react-router-dom";
-import ListErrors from "components/ListErrors";
-import React from "react";
-import { inject, observer } from "mobx-react";
+import { Link } from 'react-router-dom'
+import ListErrors from 'components/list-errors'
+import React from 'react'
+import { inject, observer } from 'mobx-react'
 
-@inject("authStore")
+@inject('authStore')
 @observer
 export default class Register extends React.Component {
   componentWillUnmount() {
-    this.props.authStore.reset();
+    this.props.authStore.reset()
   }
 
-  handleUsernameChange = e => this.props.authStore.setUsername(e.target.value);
-  handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
-  handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
+  handleUsernameChange = e => this.props.authStore.setUsername(e.target.value)
+  handleEmailChange = e => this.props.authStore.setEmail(e.target.value)
+  handlePasswordChange = e => this.props.authStore.setPassword(e.target.value)
   handleSubmitForm = e => {
-    e.preventDefault();
-    this.props.authStore.register().then(() => this.props.history.replace("/"));
-  };
+    e.preventDefault()
+    this.props.authStore.register().then(() => this.props.history.replace('/'))
+  }
 
   render() {
-    const { values, errors, inProgress } = this.props.authStore;
+    const { values, errors, inProgress } = this.props.authStore
 
     return (
       <div className="auth-page">
@@ -78,6 +78,6 @@ export default class Register extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

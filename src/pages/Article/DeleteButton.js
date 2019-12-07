@@ -1,16 +1,16 @@
-import React from 'react';
+import { html } from 'lit-html'
 
 const DeleteButton = props => {
-  const handleClick = () => props.onDelete(props.commentId);
+  const handleClick = () => props.onDelete(props.commentId)
 
   if (props.show) {
-    return (
-      <span className="mod-options">
-        <i className="ion-trash-a" onClick={handleClick} />
-      </span>
-    );
+    return html`
+      <span class="mod-options"
+        ><i class="ion-trash-a" @click=${handleClick}></i
+      ></span>
+    `
   }
-  return null;
-};
+  return null
+}
 
-export default DeleteButton;
+export default DeleteButton

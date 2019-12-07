@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 
-import RedError from 'components/RedError'
+import RedError from 'components/red-error'
 import LoadingSpinner from 'components/loading-spinner'
 import ArticleList from 'components/ArticleList'
 

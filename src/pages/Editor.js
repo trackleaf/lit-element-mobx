@@ -1,71 +1,70 @@
-import React from "react";
-import { inject, observer } from "mobx-react";
-import { withRouter } from "react-router-dom";
+import React from 'react'
+import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 
-import ListErrors from "components/ListErrors";
+import ListErrors from 'components/list-errors'
 
-@inject("editorStore")
+@inject('editorStore')
 @withRouter
 @observer
 export default class Editor extends React.Component {
   state = {
-    tagInput: ""
-  };
+    tagInput: ''
+  }
 
   componentWillMount() {
-    this.props.editorStore.setArticleSlug(this.props.match.params.slug);
+    this.props.editorStore.setArticleSlug(this.props.match.params.slug)
   }
 
   componentDidMount() {
-    this.props.editorStore.loadInitialData();
+    this.props.editorStore.loadInitialData()
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.slug !== prevProps.match.params.slug) {
-      this.props.editorStore.setArticleSlug(this.props.match.params.slug);
-      this.props.editorStore.loadInitialData();
+      this.props.editorStore.setArticleSlug(this.props.match.params.slug)
+      this.props.editorStore.loadInitialData()
     }
   }
 
-  changeTitle = e => this.props.editorStore.setTitle(e.target.value);
-  changeDescription = e =>
-    this.props.editorStore.setDescription(e.target.value);
-  changeBody = e => this.props.editorStore.setBody(e.target.value);
-  changeTagInput = e => this.setState({ tagInput: e.target.value });
+  changeTitle = e => this.props.editorStore.setTitle(e.target.value)
+  changeDescription = e => this.props.editorStore.setDescription(e.target.value)
+  changeBody = e => this.props.editorStore.setBody(e.target.value)
+  changeTagInput = e => this.setState({ tagInput: e.target.value })
 
   handleTagInputKeyDown = ev => {
     switch (ev.keyCode) {
       case 13: // Enter
       case 9: // Tab
       case 188: // ,
-        if (ev.keyCode !== 9) ev.preventDefault();
-        this.handleAddTag();
-        break;
+        if (ev.keyCode !== 9) ev.preventDefault()
+        this.handleAddTag()
+        break
       default:
-        break;
+        break
     }
-  };
+  }
 
   handleAddTag = () => {
     if (this.state.tagInput) {
-      this.props.editorStore.addTag(this.state.tagInput.trim());
-      this.setState({ tagInput: "" });
+      this.props.editorStore.addTag(this.state.tagInput.trim())
+      this.setState({ tagInput: '' })
     }
-  };
+  }
 
   handleRemoveTag = tag => {
-    if (this.props.editorStore.inProgress) return;
-    this.props.editorStore.removeTag(tag);
-  };
+    if (this.props.editorStore.inProgress) return
+    this.props.editorStore.removeTag(tag)
+  }
 
   submitForm = ev => {
-    ev.preventDefault();
-    const { editorStore } = this.props;
+    ev.preventDefault()
+    const { editorStore } = this.props
     editorStore.submit().then(article => {
-      editorStore.reset();
-      this.props.history.replace(`/article/${article.slug}`);
-    });
-  };
+      editorStore.reset()
+      this.props.history.replace(`/article/${article.slug}`)
+    })
+  }
 
   render() {
     const {
@@ -75,7 +74,7 @@ export default class Editor extends React.Component {
       description,
       body,
       tagList
-    } = this.props.editorStore;
+    } = this.props.editorStore
 
     return (
       <div className="editor-page">
@@ -141,7 +140,7 @@ export default class Editor extends React.Component {
                             />
                             {tag}
                           </span>
-                        );
+                        )
                       })}
                     </div>
                   </fieldset>
@@ -160,6 +159,6 @@ export default class Editor extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

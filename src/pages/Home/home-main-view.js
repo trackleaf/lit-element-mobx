@@ -29,6 +29,7 @@ const GlobalFeedTab = props => {
         url-match="/"
         url="/?tab=all"
         active-class="active"
+        .exact=${true}
         >Global Feed</stencil-route-link
       >
     </li>
@@ -73,8 +74,8 @@ class MainView extends Component {
       this.getTab() !== this.getTab(changedProperties.get('location')) ||
       this.getTag() !== this.getTag(changedProperties.get('location'))
     ) {
-      this.props.articlesStore.setPredicate(this.getPredicate())
-      this.props.articlesStore.loadArticles()
+      this.context.stores.articlesStore.setPredicate(this.getPredicate())
+      this.context.stores.articlesStore.loadArticles()
     }
   }
 

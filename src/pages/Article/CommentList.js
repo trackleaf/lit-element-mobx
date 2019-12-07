@@ -1,25 +1,18 @@
-import Comment from './Comment';
-import React from 'react';
-import { observer } from 'mobx-react';
+import Comment from './Comment'
+import { html } from 'lit-html'
+import { repeat } from 'components/base'
 
-const CommentList = observer(props => {
-  return (
+const CommentList = props => {
+  const { currentUser, onDelete, slug } = props
+  return html`
     <div>
-      {
-        props.comments.map(comment => {
-          return (
-            <Comment
-              comment={comment}
-              currentUser={props.currentUser}
-              slug={props.slug}
-              key={comment.id}
-              onDelete={props.onDelete}
-            />
-          );
-        })
-      }
+      ${repeat(
+        props.comments,
+        comment => comment.id,
+        comment => Comment({ comment, currentUser, onDelete, slug })
+      )}
     </div>
-  );
-});
+  `
+}
 
-export default CommentList;
+export default CommentList

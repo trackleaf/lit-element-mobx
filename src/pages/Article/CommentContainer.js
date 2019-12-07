@@ -1,44 +1,34 @@
-import CommentInput from './CommentInput';
-import CommentList from './CommentList';
-import { Link } from 'react-router-dom';
-import React from 'react';
+import './comment-input'
+import CommentList from './CommentList'
+import 'components/list-errors'
+import { html } from 'lit-html'
 
 const CommentContainer = props => {
   if (props.currentUser) {
-    return (
-      <div className="col-xs-12 col-md-8 offset-md-2">
+    return html`
+      <div class="col-xs-12 col-md-8 offset-md-2">
         <div>
-          <list-errors errors={props.errors} />
-          <CommentInput slug={props.slug} currentUser={props.currentUser} />
+          <list-errors errors=${props.errors}></list-errors>
+          <comment-input
+            .currentUser=${props.currentUser}
+            slug=${props.slug}
+          ></comment-input>
         </div>
-
-        <CommentList
-          comments={props.comments}
-          slug={props.slug}
-          currentUser={props.currentUser}
-          onDelete={props.onDelete}
-        />
+        ${CommentList(props)}
       </div>
-    );
+    `
   } else {
-    return (
-      <div className="col-xs-12 col-md-8 offset-md-2">
+    return html`
+      <div class="col-xs-12 col-md-8 offset-md-2">
         <p>
-          <Link to="/login">Sign in</Link>
-          &nbsp;or&nbsp;
-          <Link to="/register">sign up</Link>
-          &nbsp;to add comments on this article.
+          <stencil-route-link url="/login">Sign in</stencil-route-link> or
+          <stencil-route-link url="/register">sign up</stencil-route-link> to
+          add comments on this article.
         </p>
-
-        <CommentList
-          comments={props.comments}
-          slug={props.slug}
-          currentUser={props.currentUser}
-          onDelete={props.onDelete}
-        />
+        ${CommentList(props)}
       </div>
-    );
+    `
   }
-};
+}
 
-export default CommentContainer;
+export default CommentContainer
