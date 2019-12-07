@@ -1,4 +1,4 @@
-import { Component, html } from 'components/base'
+import { Component, html, ifDefined } from 'components/base'
 
 class CommentInput extends Component {
   static observedContexts = ['stores']
@@ -39,7 +39,7 @@ class CommentInput extends Component {
         </div>
         <div class="card-footer">
           <img
-            src=${this.currentUser.image}
+            src=${ifDefined(this.currentUser.image || undefined)}
             class="comment-author-img"
             alt=""
           /><button class="btn btn-sm btn-primary" type="submit">

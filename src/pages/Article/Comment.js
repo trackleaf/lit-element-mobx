@@ -1,5 +1,6 @@
 import DeleteButton from './DeleteButton'
 import { html } from 'lit-html'
+import { ifDefined } from 'components/base'
 
 const Comment = props => {
   const comment = props.comment
@@ -12,7 +13,10 @@ const Comment = props => {
         <stencil-route-link
           url=${`/@${comment.author.username}`}
           class="comment-author"
-          ><img src=${comment.author.image} class="comment-author-img" alt=""
+          ><img
+            src=${ifDefined(comment.author.image || undefined)}
+            class="comment-author-img"
+            alt=""
         /></stencil-route-link>
         <stencil-route-link
           url=${`/@${comment.author.username}`}
