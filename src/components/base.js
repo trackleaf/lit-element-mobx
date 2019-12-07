@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit-element'
+import { classMap } from 'lit-html/directives/class-map'
 import { styleMap } from 'lit-html/directives/style-map'
 import { repeat } from 'lit-html/directives/repeat'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
@@ -12,4 +13,4 @@ class Component extends withContext(MobxReactionUpdate(LitElement)) {
   }
 }
 
-export { Component, html, styleMap, repeat, unsafeHTML, ifDefined }
+export { Component, html, styleMap, classMap, repeat, unsafeHTML, ifDefined }
