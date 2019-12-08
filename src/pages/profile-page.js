@@ -57,9 +57,6 @@ class ProfilePage extends Component {
   connectedCallback() {
     super.connectedCallback()
     this.context.stores.articlesStore.setPredicate(this.getPredicate())
-  }
-
-  firstUpdated() {
     this.context.stores.profileStore.loadProfile(this.match.params.username)
     this.context.stores.articlesStore.loadArticles()
   }
