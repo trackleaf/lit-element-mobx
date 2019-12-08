@@ -1,15 +1,15 @@
-import './components/app-header'
+import { Component, html } from './components/base'
+import PrivateRoute from 'components/PrivateRoute'
 
-// import PrivateRoute from 'components/PrivateRoute'
+import './components/app-header'
 
 import 'pages/login-page'
 import 'pages/Home/home-page'
-// import Register from 'pages/Register'
+import 'pages/register-page'
 import 'pages/Article/article-page'
 import 'pages/editor-page'
 import 'pages/profile-page'
-// import Settings from 'pages/Settings'
-import { Component, html } from './components/base'
+import 'pages/settings-page'
 
 class App extends Component {
   static properties = {
@@ -27,7 +27,7 @@ class App extends Component {
     }
   }
 
-  updated() {
+  firstUpdated() {
     if (this.stores.commonStore.token) {
       this.stores.userStore
         .pullUser()
@@ -37,35 +37,28 @@ class App extends Component {
 
   render() {
     if (this.stores.commonStore.appLoaded) {
+      const { currentUser } = this.stores.userStore
       return html`
         <div>
           <app-header></app-header>
-          <stencil-route-switch
-            ><stencil-route url="/login" component="login-page"></stencil-route
-            ><stencil-route
-              url="/register"
-              component="register-view"
-            ></stencil-route>
-            <stencil-route
-              url="/editor/:slug?"
-              component="editor-page"
-            ></stencil-route>
-            <stencil-route
-              url="/article/:id"
-              component="article-page"
-            ></stencil-route>
-            <private-route
-              url="/settings"
-              component="settings-view"
-            ></private-route>
-            <stencil-route
-              url="/@:username"
-              component="profile-page"
-            ></stencil-route>
-            <stencil-route
-              url="/@:username/favorites"
-              component="profile-page"
-            ></stencil-route>
+          <stencil-route-switch>
+            <stencil-route url="/login" component="login-page"></stencil-route>
+            <stencil-route url="/register" component="register-page">
+            </stencil-route>
+            <stencil-route url="/editor/:slug?" component="editor-page">
+            </stencil-route>
+            <stencil-route url="/article/:id" component="article-page">
+            </stencil-route>
+            ${PrivateRoute({
+              component: 'settings-page',
+              url: '/settings',
+              currentUser
+            })}
+            </private-route>
+            <stencil-route url="/@:username" component="profile-page">
+            </stencil-route>
+            <stencil-route url="/@:username/favorites" component="profile-page">
+            </stencil-route>
             <stencil-route
               url="/"
               component="home-page"
