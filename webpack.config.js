@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { WebpackPluginServe } = require('webpack-plugin-serve')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const argv = require('webpack-nano/argv')
 
 const { mode = 'production' } = argv
@@ -16,7 +17,9 @@ const plugins = [
 
 const entry = ['./src/index.js']
 
-if (!isProd) {
+if (isProd) {
+  plugins.push(new BundleAnalyzerPlugin())
+} else {
   // dev
   plugins.push(
     new WebpackPluginServe({
