@@ -148,7 +148,8 @@ class ProfilePage extends Component {
                   isUser,
                   username: profile.username,
                   following: profile.following,
-                  unfollow: this.handleUnfollow
+                  unfollow: this.handleUnfollow,
+                  follow: this.handleFollow
                 })}
               </div>
             </div>
