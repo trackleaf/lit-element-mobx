@@ -1,31 +1,46 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { WebpackPluginServe } = require('webpack-plugin-serve')
 const argv = require('webpack-nano/argv')
-//const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 const { mode = 'production' } = argv
+const isProd = mode === 'production'
+const DIST_DIR = 'dist'
+
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: path.resolve(__dirname, 'public/index.html')
+  })
+]
+
+const entry = ['./src/index.js']
+
+if (!isProd) {
+  // dev
+  plugins.push(
+    new WebpackPluginServe({
+      host: 'localhost',
+      port: '8080',
+      static: path.resolve(__dirname, DIST_DIR),
+      liveReload: true,
+      hmr: false,
+      open: true
+    })
+  )
+
+  // enable progress indicator
+  entry.push('webpack-plugin-serve/client')
+}
 
 module.exports = {
   mode,
-  entry: './src/index.js',
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html')
-    })
-  ],
+  entry,
+  plugins,
   module: {
     rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
-        loader: 'url-loader?limit=100000'
       }
     ]
   },
