@@ -48,5 +48,6 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, './src'), 'node_modules']
   },
-  watch: mode === 'development'
+  watch: mode === 'development',
+  devtool: isProd ? 'source-map' : 'eval'
 }
