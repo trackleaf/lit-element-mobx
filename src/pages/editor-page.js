@@ -15,9 +15,6 @@ class EditorPage extends Component {
   connectedCallback() {
     super.connectedCallback()
     this.context.stores.editorStore.setArticleSlug(this.match.params.slug)
-  }
-
-  firstUpdated() {
     this.context.stores.editorStore.loadInitialData()
   }
 

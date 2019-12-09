@@ -6,7 +6,8 @@ import './home-main-view'
 class HomePage extends Component {
   static observedContexts = ['stores']
 
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback()
     this.context.stores.commonStore.loadTags()
   }
 

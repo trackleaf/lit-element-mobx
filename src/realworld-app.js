@@ -22,16 +22,12 @@ class App extends Component {
 
   connectedCallback() {
     super.connectedCallback()
-    if (!this.stores.commonStore.token) {
-      this.stores.commonStore.setAppLoaded()
-    }
-  }
-
-  firstUpdated() {
     if (this.stores.commonStore.token) {
       this.stores.userStore
         .pullUser()
         .finally(() => this.stores.commonStore.setAppLoaded())
+    } else {
+      this.stores.commonStore.setAppLoaded()
     }
   }
 

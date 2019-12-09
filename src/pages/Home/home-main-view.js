@@ -56,9 +56,6 @@ class MainView extends Component {
   connectedCallback() {
     super.connectedCallback()
     this.context.stores.articlesStore.setPredicate(this.getPredicate())
-  }
-
-  firstUpdated() {
     this.context.stores.articlesStore.loadArticles()
   }
 

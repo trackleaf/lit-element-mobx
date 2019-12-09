@@ -13,7 +13,8 @@ class ArticlePage extends Component {
     match: {}
   }
 
-  firstUpdated() {
+  connectedCallback() {
+    super.connectedCallback()
     const slug = this.match.params.id
     this.context.stores.articlesStore.loadArticle(slug, { acceptCached: true })
     this.context.stores.commentsStore.setArticleSlug(slug)
