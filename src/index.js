@@ -1,6 +1,6 @@
 import { render, html } from 'lit-html'
 import promiseFinally from 'promise.prototype.finally'
-import { useStrict } from 'mobx'
+import { configure } from 'mobx'
 import { defineCustomElements } from '@stencil/router/dist/cjs/loader.cjs'
 
 import './realworld-app'
@@ -30,7 +30,7 @@ defineCustomElements()
 window._____APP_STATE_____ = stores
 
 promiseFinally.shim()
-useStrict(true)
+configure({ enforceActions: 'observed' })
 
 render(
   html`
