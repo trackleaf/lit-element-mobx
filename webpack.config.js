@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { WebpackPluginServe } = require('webpack-plugin-serve')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const { StatsWriterPlugin } = require('webpack-stats-plugin')
 const argv = require('webpack-nano/argv')
 
 const { mode = 'production' } = argv
@@ -18,7 +18,13 @@ const plugins = [
 const entry = ['./src/index.js']
 
 if (isProd) {
-  plugins.push(new BundleAnalyzerPlugin())
+  plugins.push(
+    new StatsWriterPlugin({
+      stats: {
+        all: true
+      }
+    })
+  )
 } else {
   // dev
   plugins.push(
