@@ -52,7 +52,7 @@ export class ArticlesStore {
     this.isLoading = true
     return this.$req()
       .then(
-        action(({ articles, articlesCount }) => {
+        action('updateArticlesRegistry', ({ articles, articlesCount }) => {
           this.articlesRegistry.clear()
           articles.forEach(article =>
             this.articlesRegistry.set(article.slug, article)
@@ -61,7 +61,7 @@ export class ArticlesStore {
         })
       )
       .finally(
-        action(() => {
+        action('endLoadingArticles', () => {
           this.isLoading = false
         })
       )
