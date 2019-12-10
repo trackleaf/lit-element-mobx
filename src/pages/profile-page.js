@@ -50,36 +50,52 @@ class ProfilePage extends Component {
   static observedContexts = ['stores']
 
   static properties = {
-    location: {},
-    match: {}
+    username: { type: String },
+    pathname: { type: String }
+  }
+
+  set match(value) {
+    this.username = value.params.username
+    this.pathname = this.history.location.pathname
   }
 
   connectedCallback() {
     super.connectedCallback()
     this.context.stores.articlesStore.setPredicate(this.getPredicate())
-    this.context.stores.profileStore.loadProfile(this.match.params.username)
+    this.context.stores.profileStore.loadProfile(this.username)
     this.context.stores.articlesStore.loadArticles()
+    this.dataLoaded = true
   }
 
-  updated(changedProperties) {
-    if (!changedProperties.has('location')) return
+  shouldUpdate(changedProperties) {
+    // avoid reloading data just after connect
+    if (this.dataLoaded) {
+      this.dataLoaded = false
+      return true
+    }
 
-    this.context.stores.profileStore.loadProfile(this.match.params.username)
-    this.context.stores.articlesStore.setPredicate(this.getPredicate())
-    this.context.stores.articlesStore.loadArticles()
+    if (changedProperties.has('username')) {
+      this.context.stores.profileStore.loadProfile(this.username)
+    }
+
+    if (changedProperties.has('pathname')) {
+      this.context.stores.articlesStore.setPredicate(this.getPredicate())
+      this.context.stores.articlesStore.loadArticles()
+    }
+    return true
   }
 
   getTab() {
-    if (/\/favorites/.test(this.location.pathname)) return 'favorites'
+    if (/\/favorites/.test(this.pathname)) return 'favorites'
     return 'all'
   }
 
   getPredicate() {
     switch (this.getTab()) {
       case 'favorites':
-        return { favoritedBy: this.match.params.username }
+        return { favoritedBy: this.username }
       default:
-        return { author: this.match.params.username }
+        return { author: this.username }
     }
   }
 
@@ -93,7 +109,7 @@ class ProfilePage extends Component {
 
   renderTabs() {
     const { profile } = this.context.stores.profileStore
-    const isFavorites = this.location.pathname.match('/favorites')
+    const isFavorites = this.pathname.match('/favorites')
     return html`
       <ul class="nav nav-pills outline-active">
         <li class="nav-item">
