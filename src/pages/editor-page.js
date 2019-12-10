@@ -100,7 +100,7 @@ class EditorPage extends Component {
                       type="text"
                       placeholder="Article Title"
                       .value=${title}
-                      @change=${this.changeTitle}
+                      @input=${this.changeTitle}
                       ?disabled=${inProgress}
                     />
                   </fieldset>
@@ -110,7 +110,7 @@ class EditorPage extends Component {
                       type="text"
                       placeholder="What's this article about?"
                       .value=${description}
-                      @change=${this.changeDescription}
+                      @input=${this.changeDescription}
                       ?disabled=${inProgress}
                     />
                   </fieldset>
@@ -120,7 +120,7 @@ class EditorPage extends Component {
                       rows="8"
                       placeholder="Write your article (in markdown)"
                       .value=${body}
-                      @change=${this.changeBody}
+                      @input=${this.changeBody}
                       ?disabled=${inProgress}
                     ></textarea>
                   </fieldset>
@@ -130,7 +130,7 @@ class EditorPage extends Component {
                       type="text"
                       placeholder="Enter tags"
                       .value=${this.tagInput}
-                      @change=${this.changeTagInput}
+                      @input=${this.changeTagInput}
                       @blur=${this.handleAddTag}
                       @keydown=${this.handleTagInputKeyDown}
                       ?disabled=${inProgress}
