@@ -59,17 +59,17 @@ class MainView extends Component {
     this.context.stores.articlesStore.loadArticles()
   }
 
-  updated(changedProperties) {
-    if (!changedProperties.has('location')) {
-      return
+  shouldUpdate(changedProperties) {
+    if (changedProperties.has('location')) {
+      if (
+        this.getTab() !== this.getTab(changedProperties.get('location')) ||
+        this.getTag() !== this.getTag(changedProperties.get('location'))
+      ) {
+        this.context.stores.articlesStore.setPredicate(this.getPredicate())
+        this.context.stores.articlesStore.loadArticles()
+      }
     }
-    if (
-      this.getTab() !== this.getTab(changedProperties.get('location')) ||
-      this.getTag() !== this.getTag(changedProperties.get('location'))
-    ) {
-      this.context.stores.articlesStore.setPredicate(this.getPredicate())
-      this.context.stores.articlesStore.loadArticles()
-    }
+    return true
   }
 
   getTag(location = this.location) {

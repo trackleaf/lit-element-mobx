@@ -7,24 +7,33 @@ class EditorPage extends Component {
 
   static properties = {
     tagInput: { type: String },
-    match: {}
+    slug: { type: String }
   }
 
   tagInput = ''
 
-  connectedCallback() {
-    super.connectedCallback()
-    this.context.stores.editorStore.setArticleSlug(this.match.params.slug)
-    this.context.stores.editorStore.loadInitialData()
+  set match(value) {
+    this.slug = value.params.slug
   }
 
-  updated(changedProperties) {
-    const previousMatch = changedProperties.get('match')
-    if (!previousMatch) return
-    if (this.match.params.slug !== previousMatch.params.slug) {
-      this.context.stores.editorStore.setArticleSlug(this.match.params.slug)
+  connectedCallback() {
+    super.connectedCallback()
+    this.context.stores.editorStore.setArticleSlug(this.slug)
+    this.context.stores.editorStore.loadInitialData()
+    this.dataLoaded = true
+  }
+
+  shouldUpdate(changedProperties) {
+    if (this.dataLoaded) {
+      this.dataLoaded = false
+      return true
+    }
+
+    if (changedProperties.has('slug')) {
+      this.context.stores.editorStore.setArticleSlug(this.slug)
       this.context.stores.editorStore.loadInitialData()
     }
+    return true
   }
 
   changeTitle = e => this.context.stores.editorStore.setTitle(e.target.value)
