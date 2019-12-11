@@ -1,27 +1,13 @@
 import { render, html } from 'lit-html'
 import 'promise-prototype-finally'
-import { configure } from 'mobx'
+import { configure as configureMobx } from 'mobx'
 import { defineCustomElements } from '@stencil/router/dist/cjs/loader.cjs'
+import agent from 'agent'
 
+import RootStore from './stores/rootStore'
 import './realworld-app'
 
-import articlesStore from './stores/articlesStore'
-import commentsStore from './stores/commentsStore'
-import authStore from './stores/authStore'
-import commonStore from './stores/commonStore'
-import editorStore from './stores/editorStore'
-import userStore from './stores/userStore'
-import profileStore from './stores/profileStore'
-
-const stores = {
-  articlesStore,
-  commentsStore,
-  authStore,
-  commonStore,
-  editorStore,
-  userStore,
-  profileStore
-}
+const stores = new RootStore()
 
 // @stencil/router
 defineCustomElements()
@@ -29,7 +15,8 @@ defineCustomElements()
 // For easier debugging
 window._____APP_STATE_____ = stores
 
-configure({ enforceActions: 'observed' })
+configureMobx({ enforceActions: 'observed' })
+agent.configure(stores)
 
 render(
   html`

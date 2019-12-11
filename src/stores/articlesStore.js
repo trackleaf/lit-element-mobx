@@ -144,4 +144,4 @@ export class ArticlesStore {
   }
 }
 
-export default new ArticlesStore()
+export default ArticlesStore

@@ -1,7 +1,10 @@
 import { observable, action } from 'mobx'
-import articlesStore from './articlesStore'
 
 class EditorStore {
+  constructor(rootStore) {
+    this.rootStore = rootStore
+  }
+
   @observable inProgress = false
   @observable errors = undefined
   @observable articleSlug = undefined
@@ -21,7 +24,7 @@ class EditorStore {
   @action loadInitialData() {
     if (!this.articleSlug) return Promise.resolve()
     this.inProgress = true
-    return articlesStore
+    return this.rootStore.articlesStore
       .loadArticle(this.articleSlug, { acceptCached: true })
       .then(
         action(article => {
@@ -78,8 +81,8 @@ class EditorStore {
       slug: this.articleSlug
     }
     return (this.articleSlug
-      ? articlesStore.updateArticle(article)
-      : articlesStore.createArticle(article)
+      ? this.rootStore.articlesStore.updateArticle(article)
+      : this.rootStore.articlesStore.createArticle(article)
     )
       .catch(
         action(err => {
@@ -96,4 +99,4 @@ class EditorStore {
   }
 }
 
-export default new EditorStore()
+export default EditorStore

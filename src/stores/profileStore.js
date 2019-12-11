@@ -43,4 +43,4 @@ class ProfileStore {
   }
 }
 
-export default new ProfileStore()
+export default ProfileStore

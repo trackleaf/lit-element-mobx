@@ -61,4 +61,4 @@ export class CommentsStore {
   }
 }
 
-export default new CommentsStore()
+export default CommentsStore

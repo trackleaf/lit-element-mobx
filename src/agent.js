@@ -1,13 +1,18 @@
 import superagentPromise from 'superagent-promise'
 import _superagent from 'superagent'
-import commonStore from './stores/commonStore'
-import authStore from './stores/authStore'
 
 const superagent = superagentPromise(_superagent, global.Promise)
 
 const API_ROOT = 'https://conduit.productionready.io/api'
 
 const encode = encodeURIComponent
+
+let commonStore, authStore
+
+const configure = stores => {
+  commonStore = stores.commonStore
+  authStore = stores.authStore
+}
 
 const handleErrors = err => {
   if (err && err.response && err.response.status === 401) {
@@ -104,5 +109,6 @@ export default {
   Auth,
   Comments,
   Profile,
-  Tags
+  Tags,
+  configure
 }
