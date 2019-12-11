@@ -1,5 +1,5 @@
 import { render, html } from 'lit-html'
-import promiseFinally from 'promise.prototype.finally'
+import 'promise-prototype-finally'
 import { configure } from 'mobx'
 import { defineCustomElements } from '@stencil/router/dist/cjs/loader.cjs'
 
@@ -29,7 +29,6 @@ defineCustomElements()
 // For easier debugging
 window._____APP_STATE_____ = stores
 
-promiseFinally.shim()
 configure({ enforceActions: 'observed' })
 
 render(
