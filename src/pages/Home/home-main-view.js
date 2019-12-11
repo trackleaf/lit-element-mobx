@@ -50,7 +50,7 @@ class MainView extends Component {
   static observedContexts = ['stores']
 
   static properties = {
-    location: {}
+    search: { type: String }
   }
 
   connectedCallback() {
@@ -60,10 +60,10 @@ class MainView extends Component {
   }
 
   shouldUpdate(changedProperties) {
-    if (changedProperties.has('location')) {
+    if (changedProperties.has('search')) {
       if (
-        this.getTab() !== this.getTab(changedProperties.get('location')) ||
-        this.getTag() !== this.getTag(changedProperties.get('location'))
+        this.getTab() !== this.getTab(changedProperties.get('search')) ||
+        this.getTag() !== this.getTag(changedProperties.get('search'))
       ) {
         this.context.stores.articlesStore.setPredicate(this.getPredicate())
         this.context.stores.articlesStore.loadArticles()
@@ -72,20 +72,20 @@ class MainView extends Component {
     return true
   }
 
-  getTag(location = this.location) {
-    return qsParse(location.search).tag || ''
+  getTag(search = this.search) {
+    return qsParse(search).tag || ''
   }
 
-  getTab(location = this.location) {
-    return qsParse(location.search).tab || 'all'
+  getTab(search = this.search) {
+    return qsParse(search).tab || 'all'
   }
 
-  getPredicate(location = this.location) {
-    switch (this.getTab(location)) {
+  getPredicate(search = this.search) {
+    switch (this.getTab(search)) {
       case 'feed':
         return { myFeed: true }
       case 'tag':
-        return { tag: qsParse(location.search).tag }
+        return { tag: qsParse(search).tag }
       default:
         return {}
     }
@@ -117,7 +117,7 @@ class MainView extends Component {
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             ${YourFeedTab({ currentUser, tab })} ${GlobalFeedTab({ tab })}
-            ${TagFilterTab({ tag: qsParse(this.location.search).tag })}
+            ${TagFilterTab({ tag: qsParse(this.search).tag })}
           </ul>
         </div>
         ${ArticleList({

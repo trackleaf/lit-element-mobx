@@ -6,6 +6,15 @@ import './home-main-view'
 class HomePage extends Component {
   static observedContexts = ['stores']
 
+  static properties = {
+    search: { type: String }
+  }
+
+  set match(value) {
+    // listen to match because location is set even when element is being removed by the router
+    this.search = this.history.location.search
+  }
+
   connectedCallback() {
     super.connectedCallback()
     this.context.stores.commonStore.loadTags()
@@ -18,7 +27,10 @@ class HomePage extends Component {
         ${Banner({ token: token, appName: appName })}
         <div class="container page">
           <div class="row">
-            <home-main-view class="col-md-9"></home-main-view>
+            <home-main-view
+              class="col-md-9"
+              search=${this.search}
+            ></home-main-view>
             <div class="col-md-3">
               <div class="sidebar">
                 <p>Popular Tags</p>
