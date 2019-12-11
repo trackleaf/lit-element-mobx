@@ -55,6 +55,7 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: { mobx: 'mobx/lib/mobx.es6.js' },
     modules: [path.resolve(__dirname, './src'), 'node_modules']
   },
   watch: mode === 'development',
