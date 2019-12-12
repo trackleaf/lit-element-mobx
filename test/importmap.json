@@ -1,0 +1,3 @@
+{
+  "../node_modules/superagent/lib/node/index.js": "./test/dummy-superagent.js"
+}
