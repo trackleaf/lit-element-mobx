@@ -1,5 +1,5 @@
 {
   "imports": {
-    "/base/node_modules/superagent/lib/node/index.js": "/base/test/dummy-superagent.js"
+    "/base/node_modules/superagent/lib/node/index.js": "/base/test/superagent-es-bridge.js"
   }
 }
