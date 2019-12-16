@@ -1,7 +1,4 @@
-import superagentPromise from 'superagent-promise'
-import _superagent from 'superagent'
-
-const superagent = superagentPromise(_superagent, global.Promise)
+import superagent from 'superagent'
 
 const API_ROOT = 'https://conduit.productionready.io/api'
 
@@ -34,25 +31,25 @@ const requests = {
     superagent
       .del(`${API_ROOT}${url}`)
       .use(tokenPlugin)
-      .end(handleErrors)
+      .catch(handleErrors)
       .then(responseBody),
   get: url =>
     superagent
       .get(`${API_ROOT}${url}`)
       .use(tokenPlugin)
-      .end(handleErrors)
+      .catch(handleErrors)
       .then(responseBody),
   put: (url, body) =>
     superagent
       .put(`${API_ROOT}${url}`, body)
       .use(tokenPlugin)
-      .end(handleErrors)
+      .catch(handleErrors)
       .then(responseBody),
   post: (url, body) =>
     superagent
       .post(`${API_ROOT}${url}`, body)
       .use(tokenPlugin)
-      .end(handleErrors)
+      .catch(handleErrors)
       .then(responseBody)
 }
 
