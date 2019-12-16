@@ -1,8 +1,8 @@
 {
-  "name": "lit-mobx-realworld-example-app",
+  "name": "lit-element-mobx-realworld-example-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://react-mobx.realworld.io",
+  "homepage": "https://blikblum.github.io/lit-element-mobx-realworld-example-app",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.7.4",
