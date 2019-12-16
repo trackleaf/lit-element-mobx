@@ -1,6 +1,7 @@
 import { expect, html } from '@open-wc/testing'
+import { fixture } from 'wc-testing'
+import { registerProvidedContext } from 'wc-context/core'
 import 'components/app-header'
-import { contextFixture } from './utils'
 import RootStore from 'stores/rootStore'
 
 const loggedUserSample = {
@@ -16,26 +17,29 @@ const loggedUserSample = {
 
 describe('app-header', () => {
   let stores
+  let contextEl
   beforeEach(() => {
     stores = new RootStore()
+    contextEl = document.createElement('div')
+    registerProvidedContext(contextEl, 'stores', { stores })
   })
   it('with logged user', async () => {
-    const el = await contextFixture(
+    stores.userStore.currentUser = loggedUserSample
+    const el = await fixture(
       html`
         <app-header></app-header>
       `,
-      { stores }
+      { parent: contextEl }
     )
     expect(el).dom.to.equalSnapshot()
   })
 
   it('without logged user', async () => {
-    stores.userStore.currentUser = loggedUserSample
-    const el = await contextFixture(
+    const el = await fixture(
       html`
         <app-header></app-header>
       `,
-      { stores }
+      { parent: contextEl }
     )
     expect(el).dom.to.equalSnapshot()
   })

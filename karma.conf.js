@@ -1,8 +1,6 @@
 const { createDefaultConfig } = require('@open-wc/testing-karma')
 const merge = require('deepmerge')
 
-const isDebug = process.argv.includes('--debug')
-
 module.exports = config => {
   config.set(
     merge(createDefaultConfig(config), {
@@ -26,12 +24,20 @@ module.exports = config => {
         importMap: 'test/importmap.json',
         moduleDirs: [__dirname + '/src', 'node_modules']
       },
-      browsers: [isDebug ? 'ChromeDebugging' : 'ChromeHeadless'],
 
+      // configuration for import map support
       customLaunchers: {
-        ChromeDebugging: {
+        ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--enable-experimental-web-platform-features'
+          ]
+        },
+        ChromeExt: {
           base: 'Chrome',
-          flags: ['--remote-debugging-port=9333']
+          flags: ['--enable-experimental-web-platform-features']
         }
       }
     })
