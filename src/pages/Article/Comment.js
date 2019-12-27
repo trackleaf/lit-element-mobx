@@ -10,18 +10,14 @@ const Comment = props => {
     <div class="card">
       <div class="card-block"><p class="card-text">${comment.body}</p></div>
       <div class="card-footer">
-        <stencil-route-link
-          url=${`/@${comment.author.username}`}
-          class="comment-author"
+        <a url=${`/@${comment.author.username}`} class="comment-author"
           ><img
             src=${ifDefined(comment.author.image || undefined)}
             class="comment-author-img"
             alt=""
-        /></stencil-route-link>
-        <stencil-route-link
-          url=${`/@${comment.author.username}`}
-          class="comment-author"
-          >${comment.author.username}</stencil-route-link
+        /></a>
+        <a url=${`/@${comment.author.username}`} class="comment-author"
+          >${comment.author.username}</a
         ><span class="date-posted"
           >${new Date(comment.createdAt).toDateString()}</span
         >

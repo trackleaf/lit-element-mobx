@@ -1,8 +1,10 @@
 import { Component, html } from './base'
+import { withRouterLinks } from 'slick-router/middlewares/router-links'
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary'
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary'
 
+@withRouterLinks
 class ArticlePreview extends Component {
   static observedContexts = ['stores']
 
@@ -30,14 +32,12 @@ class ArticlePreview extends Component {
     return html`
       <div class="article-preview">
         <div class="article-meta">
-          <stencil-route-link url=${`/@${article.author.username}`}
+          <a href=${`#@${article.author.username}`}
             ><img src=${article.author.image} alt=""
-          /></stencil-route-link>
+          /></a>
           <div class="info">
-            <stencil-route-link
-              anchor-class="author"
-              url=${`/@${article.author.username}`}
-              >${article.author.username}</stencil-route-link
+            <a class="author" href=${`#@${article.author.username}`}
+              >${article.author.username}</a
             ><span class="date"
               >${new Date(article.createdAt).toDateString()}</span
             >
@@ -51,9 +51,7 @@ class ArticlePreview extends Component {
             </button>
           </div>
         </div>
-        <stencil-route-link
-          url=${`/article/${article.slug}`}
-          anchor-class="preview-link"
+        <a href=${`#article/${article.slug}`} class="preview-link"
           ><h1>${article.title}</h1>
           <p>${article.description}</p>
           <span>Read more...</span>
@@ -65,7 +63,7 @@ class ArticlePreview extends Component {
                 </li>
               `
             })}
-          </ul></stencil-route-link
+          </ul></a
         >
       </div>
     `

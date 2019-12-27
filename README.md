@@ -14,7 +14,7 @@ For more information on how this works with other frontends/backends, head over 
 
 It uses a global state defined as Mobx decorated stores. LitElement provides the primitives for UI rendering and the component model (web component). [lit-mobx](https://github.com/adobe/lit-mobx) integrates the Mobx state with the components, making them reactive.
 
-The stores are exposed to components using a context mechanism through [wc-context](https://github.com/blikblum/wc-context) and the routing is provided by [@stencil/router](https://github.com/ionic-team/stencil-router)
+The stores are exposed to components using a context mechanism through [wc-context](https://github.com/blikblum/wc-context) and the routing is provided by [slick-router](https://github.com/blikblum/slick-router)
 
 More info about development can be found in this [post](https://dev.to/blikblum/from-react-to-web-components-using-mobx-5abm)
 

@@ -21,9 +21,8 @@ const CommentContainer = props => {
     return html`
       <div class="col-xs-12 col-md-8 offset-md-2">
         <p>
-          <stencil-route-link url="/login">Sign in</stencil-route-link> or
-          <stencil-route-link url="/register">sign up</stencil-route-link> to
-          add comments on this article.
+          <a url="/login">Sign in</a> or <a url="/register">sign up</a> to add
+          comments on this article.
         </p>
         ${CommentList(props)}
       </div>

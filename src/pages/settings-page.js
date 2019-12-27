@@ -1,6 +1,5 @@
 import 'components/list-errors'
 import { Component, html } from 'components/base'
-import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
 
 class SettingsForm extends Component {
   static observedContexts = ['stores']
@@ -116,7 +115,9 @@ class SettingsPage extends Component {
   static observedContexts = ['stores']
 
   handleClickLogout = () =>
-    this.context.stores.authStore.logout().then(() => this.history.replace('/'))
+    this.context.stores.authStore
+      .logout()
+      .then(() => this.$router.replaceWith('home'))
 
   render() {
     return html`
@@ -147,8 +148,6 @@ class SettingsPage extends Component {
     `
   }
 }
-
-injectHistory(SettingsPage)
 
 customElements.define('settings-form', SettingsForm)
 customElements.define('settings-page', SettingsPage)

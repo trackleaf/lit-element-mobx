@@ -1,6 +1,5 @@
 import 'components/list-errors'
 import { Component, html } from 'components/base'
-import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
 
 class LoginPage extends Component {
   static observedContexts = ['stores']
@@ -20,7 +19,9 @@ class LoginPage extends Component {
 
   handleSubmitForm = e => {
     e.preventDefault()
-    this.context.stores.authStore.login().then(() => this.history.replace('/'))
+    this.context.stores.authStore
+      .login()
+      .then(() => this.$router.replaceWith('home'))
   }
 
   render() {
@@ -33,9 +34,7 @@ class LoginPage extends Component {
             <div class="col-md-6 offset-md-3 col-xs-12">
               <h1 class="text-xs-center">Sign In</h1>
               <p class="text-xs-center">
-                <stencil-route-link url="register"
-                  >Need an account?</stencil-route-link
-                >
+                <a url="register">Need an account?</a>
               </p>
               <list-errors .errors=${errors}></list-errors>
               <form @submit=${this.handleSubmitForm}>
@@ -74,7 +73,5 @@ class LoginPage extends Component {
     `
   }
 }
-
-injectHistory(LoginPage)
 
 customElements.define('login-page', LoginPage)

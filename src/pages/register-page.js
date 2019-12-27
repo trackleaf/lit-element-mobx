@@ -19,7 +19,7 @@ class RegisterPage extends Component {
     e.preventDefault()
     this.context.stores.authStore
       .register()
-      .then(() => this.props.history.replace('/'))
+      .then(() => this.$router.replaceWith('home'))
   }
 
   render() {
@@ -32,9 +32,7 @@ class RegisterPage extends Component {
             <div class="col-md-6 offset-md-3 col-xs-12">
               <h1 class="text-xs-center">Sign Up</h1>
               <p class="text-xs-center">
-                <stencil-route-link url="login"
-                  >Have an account?</stencil-route-link
-                >
+                <a url="login">Have an account?</a>
               </p>
               <list-errors .errors=${errors}></list-errors>
               <form @submit=${this.handleSubmitForm}>

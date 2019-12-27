@@ -4,27 +4,32 @@ import 'components/red-error'
 import ArticleMeta from './ArticleMeta'
 import CommentContainer from './CommentContainer'
 import { Component, unsafeHTML, html } from 'components/base'
-import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
 
 class ArticlePage extends Component {
   static observedContexts = ['stores']
 
   static properties = {
-    match: {}
+    slug: { type: String }
+  }
+
+  set $route(value) {
+    this.slug = value.params.id
   }
 
   connectedCallback() {
     super.connectedCallback()
-    const slug = this.match.params.id
+    const slug = this.slug
     this.context.stores.articlesStore.loadArticle(slug, { acceptCached: true })
     this.context.stores.commentsStore.setArticleSlug(slug)
     this.context.stores.commentsStore.loadComments()
   }
 
   handleDeleteArticle = slug => {
+    this.deleting = true
     this.context.stores.articlesStore
       .deleteArticle(slug)
-      .then(() => this.history.replace('/'))
+      .then(() => this.$router.replaceWith('home'))
+      .finally(() => (this.deleting = false))
   }
 
   handleDeleteComment = id => {
@@ -32,10 +37,16 @@ class ArticlePage extends Component {
   }
 
   render() {
-    const slug = this.match.params.id
+    const slug = this.slug
     const { currentUser } = this.context.stores.userStore
     const { comments, commentErrors } = this.context.stores.commentsStore
     const article = this.context.stores.articlesStore.getArticle(slug)
+
+    if (this.deleting) {
+      return html`
+        <loading-spinner></loading-spinner>
+      `
+    }
 
     if (!article)
       return html`
@@ -89,7 +100,5 @@ class ArticlePage extends Component {
     `
   }
 }
-
-injectHistory(ArticlePage)
 
 customElements.define('article-page', ArticlePage)

@@ -2,15 +2,13 @@ import 'components/red-error'
 import 'components/loading-spinner'
 import ArticleList from 'components/ArticleList'
 import { Component, html } from 'components/base'
-import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
+import { bindRouterLinks } from 'slick-router/middlewares/router-links'
 
 const EditProfileSettings = props => {
   if (props.isUser) {
     return html`
-      <stencil-route-link
-        url="/settings"
-        class="btn btn-sm btn-outline-secondary action-btn"
-        ><i class="ion-gear-a"></i> Edit Profile Settings</stencil-route-link
+      <a href="#settings" class="btn btn-sm btn-outline-secondary action-btn"
+        ><i class="ion-gear-a"></i> Edit Profile Settings</a
       >
     `
   }
@@ -54,9 +52,17 @@ class ProfilePage extends Component {
     pathname: { type: String }
   }
 
-  set match(value) {
+  set $route(value) {
     this.username = value.params.username
-    this.pathname = this.history.location.pathname
+    this.pathname = value.pathname
+  }
+
+  updated() {
+    // wait to routerlinks root el be rendered
+    if (!this.disposeRouterLinks) {
+      const rootEls = this.querySelector('[routerlinks]')
+      if (rootEls) this.disposeRouterLinks = bindRouterLinks(this)
+    }
   }
 
   connectedCallback() {
@@ -65,6 +71,12 @@ class ProfilePage extends Component {
     this.context.stores.profileStore.loadProfile(this.username)
     this.context.stores.articlesStore.loadArticles()
     this.dataLoaded = true
+  }
+
+  disconnectedCallback() {
+    if (this.disposeRouterLinks) {
+      this.disposeRouterLinks()
+    }
   }
 
   shouldUpdate(changedProperties) {
@@ -111,20 +123,22 @@ class ProfilePage extends Component {
     const { profile } = this.context.stores.profileStore
     const isFavorites = this.pathname.match('/favorites')
     return html`
-      <ul class="nav nav-pills outline-active">
+      <ul class="nav nav-pills outline-active" routerlinks>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class=${`nav-link ${!isFavorites ? 'active' : ''}`}
-            url=${`/@${profile.username}`}
-            >My Articles</stencil-route-link
+          <a
+            class=${`nav-link ${!isFavorites ? 'active' : ''}`}
+            route="profile"
+            param-username=${profile.username}
+            exact
+            >My Articles</a
           >
         </li>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url=${`/@${profile.username}/favorites`}
-            active-class="active"
-            >Favorited Articles</stencil-route-link
+          <a
+            class="nav-link"
+            route="profile.favorites"
+            param-username=${profile.username}
+            >Favorited Articles</a
           >
         </li>
       </ul>
@@ -185,7 +199,5 @@ class ProfilePage extends Component {
     `
   }
 }
-
-injectHistory(ProfilePage)
 
 customElements.define('profile-page', ProfilePage)

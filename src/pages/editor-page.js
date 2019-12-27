@@ -1,6 +1,5 @@
 import 'components/list-errors'
 import { Component, html } from 'components/base'
-import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
 
 class EditorPage extends Component {
   static observedContexts = ['stores']
@@ -12,7 +11,7 @@ class EditorPage extends Component {
 
   tagInput = ''
 
-  set match(value) {
+  set $route(value) {
     this.slug = value.params.slug
   }
 
@@ -72,7 +71,7 @@ class EditorPage extends Component {
     const { editorStore } = this.context.stores
     editorStore.submit().then(article => {
       editorStore.reset()
-      this.history.replace(`/article/${article.slug}`)
+      this.$router.replaceWith('article', { id: article.slug })
     })
   }
 
@@ -166,7 +165,5 @@ class EditorPage extends Component {
     `
   }
 }
-
-injectHistory(EditorPage)
 
 customElements.define('editor-page', EditorPage)

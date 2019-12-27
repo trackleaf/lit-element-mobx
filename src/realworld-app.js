@@ -1,5 +1,4 @@
 import { Component, html } from './components/base'
-import PrivateRoute from 'components/PrivateRoute'
 
 import './components/app-header'
 
@@ -20,8 +19,7 @@ class App extends Component {
     stores: { property: 'stores' }
   }
 
-  connectedCallback() {
-    super.connectedCallback()
+  firstUpdated() {
     if (this.stores.commonStore.token) {
       this.stores.userStore
         .pullUser()
@@ -32,40 +30,11 @@ class App extends Component {
   }
 
   render() {
-    if (this.stores.commonStore.appLoaded) {
-      const { currentUser } = this.stores.userStore
-      return html`
-        <div>
-          <app-header></app-header>
-          <stencil-route-switch>
-            <stencil-route url="/login" component="login-page"></stencil-route>
-            <stencil-route url="/register" component="register-page">
-            </stencil-route>
-            <stencil-route url="/editor/:slug?" component="editor-page">
-            </stencil-route>
-            <stencil-route url="/article/:id" component="article-page">
-            </stencil-route>
-            ${PrivateRoute({
-              component: 'settings-page',
-              url: '/settings',
-              currentUser
-            })}
-            </private-route>
-            <stencil-route url="/@:username" component="profile-page">
-            </stencil-route>
-            <stencil-route url="/@:username/favorites" component="profile-page">
-            </stencil-route>
-            <stencil-route
-              url="/"
-              component="home-page"
-              .exact=${true}
-            ></stencil-route>
-          </stencil-route-switch>
-        </div>
-      `
-    }
     return html`
-      <app-header></app-header>
+      <div>
+        <app-header></app-header>
+        <app-root><loading-spinner></loading-spinner></app-root>
+      </div>
     `
   }
 }

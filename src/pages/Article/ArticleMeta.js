@@ -4,12 +4,12 @@ import { html } from 'lit-html'
 const ArticleMeta = ({ article, canModify, onDelete }) => {
   return html`
     <div class="article-meta">
-      <stencil-route-link to=${`/@${article.author.username}`}
+      <a href=${`#@${article.author.username}`}
         ><img src=${article.author.image} alt=""
-      /></stencil-route-link>
+      /></a>
       <div class="info">
-        <stencil-route-link to=${`/@${article.author.username}`} class="author"
-          >${article.author.username}</stencil-route-link
+        <a href=${`#@${article.author.username}`} class="author"
+          >${article.author.username}</a
         ><span class="date">${new Date(article.createdAt).toDateString()}</span>
       </div>
       ${ArticleActions({

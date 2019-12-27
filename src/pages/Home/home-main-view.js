@@ -1,17 +1,16 @@
 import ArticleList from '../../components/ArticleList'
-import { parse as qsParse } from 'query-string'
 import { Component, html } from '../../components/base'
-import { injectHistory } from '@stencil/router/dist/cjs/index.cjs'
+import { withRouterLinks } from 'slick-router/middlewares/router-links'
 
 const YourFeedTab = ({ currentUser, tab }) => {
   if (currentUser) {
     return html`
       <li class="nav-item">
-        <stencil-route-link
-          anchor-class=${`nav-link ${tab === 'feed' ? 'active' : ''}`}
-          url-match="/xxxxx"
-          url="/?tab=feed"
-          >Your Feed</stencil-route-link
+        <a
+          route="home"
+          query-tab="feed"
+          class=${`nav-link ${tab === 'feed' ? 'active' : ''}`}
+          >Your Feed</a
         >
       </li>
     `
@@ -22,11 +21,12 @@ const YourFeedTab = ({ currentUser, tab }) => {
 const GlobalFeedTab = ({ tab }) => {
   return html`
     <li class="nav-item">
-      <stencil-route-link
-        anchor-class=${`nav-link ${tab === 'all' ? 'active' : ''}`}
-        url-match="/xxxxx"
-        url="/?tab=all"
-        >Global Feed</stencil-route-link
+      <a
+        route="home"
+        query-tab="all"
+        active-class=""
+        class=${`nav-link ${tab === 'all' ? 'active' : ''}`}
+        >Global Feed</a
       >
     </li>
   `
@@ -39,18 +39,20 @@ const TagFilterTab = props => {
 
   return html`
     <li class="nav-item">
-      <a href="" class="nav-link active"
+      <a route="home" query-tag=${props.tag} class="nav-link active"
         ><i class="ion-pound"></i> ${props.tag}</a
       >
     </li>
   `
 }
 
+@withRouterLinks
 class MainView extends Component {
   static observedContexts = ['stores']
 
   static properties = {
-    search: { type: String }
+    tab: { type: String },
+    tag: { type: String }
   }
 
   connectedCallback() {
@@ -60,40 +62,35 @@ class MainView extends Component {
   }
 
   shouldUpdate(changedProperties) {
-    if (changedProperties.has('search')) {
-      if (
-        this.getTab() !== this.getTab(changedProperties.get('search')) ||
-        this.getTag() !== this.getTag(changedProperties.get('search'))
-      ) {
-        this.context.stores.articlesStore.setPredicate(this.getPredicate())
-        this.context.stores.articlesStore.loadArticles()
-      }
+    if (changedProperties.has('tab') || changedProperties.has('tag')) {
+      this.context.stores.articlesStore.setPredicate(this.getPredicate())
+      this.context.stores.articlesStore.loadArticles()
     }
     return true
   }
 
-  getTag(search = this.search) {
-    return qsParse(search).tag || ''
+  getTag() {
+    return this.tag || ''
   }
 
-  getTab(search = this.search) {
-    return qsParse(search).tab || 'all'
+  getTab() {
+    return this.tab || 'all'
   }
 
-  getPredicate(search = this.search) {
-    switch (this.getTab(search)) {
+  getPredicate() {
+    switch (this.getTab()) {
       case 'feed':
         return { myFeed: true }
       case 'tag':
-        return { tag: qsParse(search).tag }
+        return { tag: this.tag }
       default:
         return {}
     }
   }
 
   handleTabChange = tab => {
-    if (this.location.query.tab === tab) return
-    this.history.push({ ...this.location, query: { tab } })
+    if (this.tab === tab) return
+    this.dispatchEvent(new CustomEvent('tab-changed', { detail: tab }))
   }
 
   handleSetPage = page => {
@@ -115,9 +112,9 @@ class MainView extends Component {
     return html`
       <div>
         <div class="feed-toggle">
-          <ul class="nav nav-pills outline-active">
+          <ul class="nav nav-pills outline-active" routerlinks>
             ${YourFeedTab({ currentUser, tab })} ${GlobalFeedTab({ tab })}
-            ${TagFilterTab({ tag: qsParse(this.search).tag })}
+            ${TagFilterTab({ tag: this.tag })}
           </ul>
         </div>
         ${ArticleList({
@@ -131,7 +128,5 @@ class MainView extends Component {
     `
   }
 }
-
-injectHistory(MainView)
 
 customElements.define('home-main-view', MainView)

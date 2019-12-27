@@ -5,13 +5,15 @@ const Tags = props => {
   const tags = props.tags
   if (tags) {
     return html`
-      <div class="tag-list">
+      <div class="tag-list" routerlinks>
         ${tags.map(tag => {
           return html`
-            <stencil-route-link
-              url="/?tab=tag&tag=${tag}"
-              anchor-class="tag-default tag-pill"
-              >${tag}</stencil-route-link
+            <a
+              route="home"
+              query-tab="tag"
+              query-tag=${tag}
+              class="tag-default tag-pill"
+              >${tag}</a
             >
           `
         })}

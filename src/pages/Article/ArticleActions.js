@@ -7,10 +7,10 @@ const ArticleActions = props => {
   if (props.canModify) {
     return html`
       <span
-        ><stencil-route-link
-          url=${`/editor/${article.slug}`}
+        ><a
+          href=${`#editor/${article.slug}`}
           class="btn btn-outline-secondary btn-sm"
-          ><i class="ion-edit"></i> Edit Article</stencil-route-link
+          ><i class="ion-edit"></i> Edit Article</a
         ><button class="btn btn-outline-danger btn-sm" @click=${handleDelete}>
           <i class="ion-trash-a"></i> Delete Article
         </button></span
