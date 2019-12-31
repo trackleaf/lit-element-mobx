@@ -2,14 +2,6 @@ import { Component, html } from './components/base'
 
 import './components/app-header'
 
-import 'pages/login-page'
-import 'pages/Home/home-page'
-import 'pages/register-page'
-import 'pages/Article/article-page'
-import 'pages/editor-page'
-import 'pages/profile-page'
-import 'pages/settings-page'
-
 class App extends Component {
   static properties = {
     stores: { type: Object, attribute: false }

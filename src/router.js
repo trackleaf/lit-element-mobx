@@ -6,6 +6,18 @@ import {
   withRouterLinks
 } from 'slick-router/middlewares/router-links'
 
+import 'pages/login-page'
+import 'pages/Home/home-page'
+import 'pages/register-page'
+import 'pages/editor-page'
+import 'pages/profile-page'
+import 'pages/settings-page'
+
+async function ArticlePage() {
+  await import('pages/Article/article-page')
+  return 'article-page'
+}
+
 export function createRouter({ stores }) {
   const appLoaded = new Promise(resolve => {
     const disposer = observe(
@@ -37,7 +49,7 @@ export function createRouter({ stores }) {
         },
         { name: 'register', component: 'register-page' },
         { name: 'editor', component: 'editor-page', path: 'editor/:slug?' },
-        { name: 'article', component: 'article-page', path: 'article/:id' },
+        { name: 'article', component: ArticlePage, path: 'article/:id' },
         {
           name: 'settings',
           component: 'settings-page',
