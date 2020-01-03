@@ -11,8 +11,9 @@ import 'pages/login-page'
 import 'pages/Home/home-page'
 import 'pages/register-page'
 import 'pages/editor-page'
-import 'pages/profile-page'
 import 'pages/settings-page'
+
+import ProfileRoute from 'pages/Profile/ProfileRoute'
 
 async function ArticleRoute() {
   await import('pages/Article/article-page')
@@ -36,6 +37,10 @@ export function createRouter({ stores }) {
   })
 
   class AppRoute extends Route {
+    static providedContexts = {
+      stores: { value: stores }
+    }
+
     activate() {
       return appLoaded
     }
@@ -66,7 +71,7 @@ export function createRouter({ stores }) {
         },
         {
           name: 'profile',
-          component: 'profile-page',
+          class: ProfileRoute,
           path: '@:username',
           children: [{ name: 'profile.favorites' }]
         }

@@ -47,16 +47,6 @@ const FollowUserButton = props => {
 class ProfilePage extends Component {
   static observedContexts = ['stores']
 
-  static properties = {
-    username: { type: String },
-    pathname: { type: String }
-  }
-
-  set $route(value) {
-    this.username = value.params.username
-    this.pathname = value.pathname
-  }
-
   updated() {
     // wait to routerlinks root el be rendered
     if (!this.disposeRouterLinks) {
@@ -65,49 +55,9 @@ class ProfilePage extends Component {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback()
-    this.context.stores.articlesStore.setPredicate(this.getPredicate())
-    this.context.stores.profileStore.loadProfile(this.username)
-    this.context.stores.articlesStore.loadArticles()
-    this.dataLoaded = true
-  }
-
   disconnectedCallback() {
     if (this.disposeRouterLinks) {
       this.disposeRouterLinks()
-    }
-  }
-
-  shouldUpdate(changedProperties) {
-    // avoid reloading data just after connect
-    if (this.dataLoaded) {
-      this.dataLoaded = false
-      return true
-    }
-
-    if (changedProperties.has('username')) {
-      this.context.stores.profileStore.loadProfile(this.username)
-    }
-
-    if (changedProperties.has('pathname')) {
-      this.context.stores.articlesStore.setPredicate(this.getPredicate())
-      this.context.stores.articlesStore.loadArticles()
-    }
-    return true
-  }
-
-  getTab() {
-    if (/\/favorites/.test(this.pathname)) return 'favorites'
-    return 'all'
-  }
-
-  getPredicate() {
-    switch (this.getTab()) {
-      case 'favorites':
-        return { favoritedBy: this.username }
-      default:
-        return { author: this.username }
     }
   }
 
@@ -121,12 +71,12 @@ class ProfilePage extends Component {
 
   renderTabs() {
     const { profile } = this.context.stores.profileStore
-    const isFavorites = this.pathname.match('/favorites')
+
     return html`
       <ul class="nav nav-pills outline-active" routerlinks>
         <li class="nav-item">
           <a
-            class=${`nav-link ${!isFavorites ? 'active' : ''}`}
+            class="nav-link"
             route="profile"
             param-username=${profile.username}
             exact
