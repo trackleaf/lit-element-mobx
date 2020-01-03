@@ -10,7 +10,7 @@
     "@babel/plugin-proposal-decorators": "^7.7.4",
     "@babel/preset-env": "^7.7.7",
     "@open-wc/testing": "^2.4.2",
-    "@open-wc/testing-karma": "3.2.17",
+    "@open-wc/testing-karma": "3.2.25",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-commonjs": "^1.1.6",
     "deepmerge": "^4.2.2",
@@ -19,9 +19,9 @@
     "karma": "^4.4.1",
     "lit-html": "^1.1.2",
     "prettier": "^1.19.1",
-    "source-map-explorer": "^2.1.2",
+    "source-map-explorer": "^2.2.1",
     "wc-testing": "^1.4.1",
-    "webpack": "^4.41.4",
+    "webpack": "^4.41.5",
     "webpack-nano": "^0.8.1",
     "webpack-plugin-serve": "^0.12.1",
     "webpack-stats-plugin": "^0.3.1"
@@ -31,9 +31,11 @@
     "lit-element": "^2.2.1",
     "marked": "^0.8.0",
     "mobx": "^5.15.1",
+    "nextbone": "^0.13.0",
+    "nextbone-routing": "^0.11.0",
     "promise-prototype-finally": "^1.0.0",
-    "slick-router": "^2.3.0",
     "superagent": "^5.1.3",
+    "underscore": "^1.9.1",
     "wc-context": "^0.9.0"
   },
   "scripts": {

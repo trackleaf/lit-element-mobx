@@ -2,7 +2,7 @@ import 'components/red-error'
 import 'components/loading-spinner'
 import ArticleList from 'components/ArticleList'
 import { Component, html } from 'components/base'
-import { bindRouterLinks } from 'slick-router/middlewares/router-links'
+import { bindRouterLinks } from 'router'
 
 const EditProfileSettings = props => {
   if (props.isUser) {

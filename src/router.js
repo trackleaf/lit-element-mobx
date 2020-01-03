@@ -1,10 +1,11 @@
 import { observe } from 'mobx'
-import { Router } from 'slick-router'
-import { wc } from 'slick-router/middlewares/wc'
 import {
-  routerLinks,
-  withRouterLinks
-} from 'slick-router/middlewares/router-links'
+  Router,
+  Route,
+  withRouterLinks,
+  bindRouterLinks
+} from 'nextbone-routing'
+import { Region } from 'nextbone/dom-utils'
 
 import 'pages/login-page'
 import 'pages/Home/home-page'
@@ -13,9 +14,11 @@ import 'pages/editor-page'
 import 'pages/profile-page'
 import 'pages/settings-page'
 
-async function ArticlePage() {
+async function ArticleRoute() {
   await import('pages/Article/article-page')
-  return 'article-page'
+  return class ArticleRoute extends Route {
+    static component = 'article-page'
+  }
 }
 
 export function createRouter({ stores }) {
@@ -32,11 +35,17 @@ export function createRouter({ stores }) {
     )
   })
 
+  class AppRoute extends Route {
+    activate() {
+      return appLoaded
+    }
+  }
+
   const routes = [
     {
       name: 'app',
       path: '/',
-      beforeEnter: () => appLoaded,
+      class: AppRoute,
       children: [
         {
           name: 'home',
@@ -49,15 +58,11 @@ export function createRouter({ stores }) {
         },
         { name: 'register', component: 'register-page' },
         { name: 'editor', component: 'editor-page', path: 'editor/:slug?' },
-        { name: 'article', component: ArticlePage, path: 'article/:id' },
+        { name: 'article', class: ArticleRoute, path: 'article/:id' },
         {
           name: 'settings',
           component: 'settings-page',
-          beforeEnter: transition => {
-            if (stores.userStore.currentUser == null) {
-              transition.redirectTo('home')
-            }
-          }
+          private: true
         },
         {
           name: 'profile',
@@ -69,10 +74,24 @@ export function createRouter({ stores }) {
     }
   ]
 
-  const router = new Router({ routes, outlet: 'app-root', log: true })
-  router.use(wc)
-  router.use(routerLinks)
+  const outlet = () => {
+    // ensure loading spinner is removed
+    const rootEl = document.querySelector('app-root')
+    const result = new Region(rootEl)
+    result.currentEl = rootEl.children[0]
+    return result
+  }
+
+  const router = new Router({ routes, outlet, log: true })
+
+  // handle private routes
+  router.on('before:activate', (transition, route) => {
+    if (route.$options.private && stores.userStore.currentUser == null) {
+      transition.redirectTo('home')
+    }
+  })
+
   return router
 }
 
-export { withRouterLinks }
+export { withRouterLinks, bindRouterLinks }

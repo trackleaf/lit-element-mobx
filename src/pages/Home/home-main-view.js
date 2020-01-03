@@ -1,6 +1,6 @@
 import ArticleList from '../../components/ArticleList'
 import { Component, html } from '../../components/base'
-import { withRouterLinks } from 'slick-router/middlewares/router-links'
+import { withRouterLinks } from 'router'
 
 const YourFeedTab = ({ currentUser, tab }) => {
   if (currentUser) {

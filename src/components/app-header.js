@@ -1,5 +1,5 @@
 import { Component, html, ifDefined } from './base'
-import { withRouterLinks } from 'slick-router/middlewares/router-links'
+import { withRouterLinks } from 'router'
 
 const LoggedOutView = props => {
   if (!props.currentUser) {

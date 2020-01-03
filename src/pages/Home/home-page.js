@@ -2,7 +2,7 @@ import { Component, html } from '../../components/base'
 import Banner from './Banner'
 import Tags from './Tags'
 import './home-main-view'
-import { withRouterLinks } from 'slick-router/middlewares/router-links'
+import { withRouterLinks } from 'router'
 
 @withRouterLinks
 class HomePage extends Component {

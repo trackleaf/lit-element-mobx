@@ -1,5 +1,5 @@
 import { Component, html } from './base'
-import { withRouterLinks } from 'slick-router/middlewares/router-links'
+import { withRouterLinks } from 'router'
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary'
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary'
