@@ -120,17 +120,21 @@ export class ArticlesStore {
   }
 
   @action createArticle(article) {
-    return agent.Articles.create(article).then(({ article }) => {
-      this.articlesRegistry.set(article.slug, article)
-      return article
-    })
+    return agent.Articles.create(article).then(
+      action(({ article }) => {
+        this.articlesRegistry.set(article.slug, article)
+        return article
+      })
+    )
   }
 
   @action updateArticle(data) {
-    return agent.Articles.update(data).then(({ article }) => {
-      this.articlesRegistry.set(article.slug, article)
-      return article
-    })
+    return agent.Articles.update(data).then(
+      action(({ article }) => {
+        this.articlesRegistry.set(article.slug, article)
+        return article
+      })
+    )
   }
 
   @action deleteArticle(slug) {
