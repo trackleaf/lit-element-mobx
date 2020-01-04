@@ -5,35 +5,10 @@ class EditorPage extends Component {
   static observedContexts = ['stores']
 
   static properties = {
-    tagInput: { type: String },
-    slug: { type: String }
+    tagInput: { type: String }
   }
 
   tagInput = ''
-
-  set $route(value) {
-    this.slug = value.params.slug
-  }
-
-  connectedCallback() {
-    super.connectedCallback()
-    this.context.stores.editorStore.setArticleSlug(this.slug)
-    this.context.stores.editorStore.loadInitialData()
-    this.dataLoaded = true
-  }
-
-  shouldUpdate(changedProperties) {
-    if (this.dataLoaded) {
-      this.dataLoaded = false
-      return true
-    }
-
-    if (changedProperties.has('slug')) {
-      this.context.stores.editorStore.setArticleSlug(this.slug)
-      this.context.stores.editorStore.loadInitialData()
-    }
-    return true
-  }
 
   changeTitle = e => this.context.stores.editorStore.setTitle(e.target.value)
   changeDescription = e =>

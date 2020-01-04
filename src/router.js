@@ -10,10 +10,10 @@ import { Region } from 'nextbone/dom-utils'
 import 'pages/login-page'
 import 'pages/Home/home-page'
 import 'pages/register-page'
-import 'pages/editor-page'
 import 'pages/settings-page'
 
 import ProfileRoute from 'pages/Profile/ProfileRoute'
+import EditorRoute from 'pages/Editor/EditorRoute'
 
 async function ArticleRoute() {
   await import('pages/Article/article-page')
@@ -62,7 +62,7 @@ export function createRouter({ stores }) {
           component: 'login-page'
         },
         { name: 'register', component: 'register-page' },
-        { name: 'editor', component: 'editor-page', path: 'editor/:slug?' },
+        { name: 'editor', class: EditorRoute, path: 'editor/:slug?' },
         { name: 'article', class: ArticleRoute, path: 'article/:id' },
         {
           name: 'settings',
