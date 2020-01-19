@@ -1,20 +1,25 @@
-import { Route, elProperty } from 'nextbone-routing'
+import { Route, property } from 'nextbone-routing'
 import './profile-page'
+import { on } from 'nextbone'
 
 export default class ProfileRoute extends Route {
   static component = 'profile-page'
 
-  load(transition) {
-    if (this.username !== transition.params.username) {
-      this.username = transition.params.username
-      this.context.stores.profileStore.loadProfile(this.username)
-    }
+  @property({ from: 'params.username' })
+  username
 
-    if (this.pathname !== transition.pathname) {
-      this.pathname = transition.pathname
-      this.context.stores.articlesStore.setPredicate(this.getPredicate())
-      this.context.stores.articlesStore.loadArticles()
-    }
+  @property({ from: 'pathname' })
+  pathname
+
+  @on('change:pathname')
+  pathnameChange() {
+    this.context.stores.articlesStore.setPredicate(this.getPredicate())
+    this.context.stores.articlesStore.loadArticles()
+  }
+
+  @on('change:username')
+  usernameChange() {
+    this.context.stores.profileStore.loadProfile(this.username)
   }
 
   getTab() {
