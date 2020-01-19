@@ -1,6 +1,9 @@
 import { Component, html } from './components/base'
+import { AnimatedOutlet } from 'slick-router/components/animated-outlet'
 
 import './components/app-header'
+
+customElements.define('app-root', AnimatedOutlet)
 
 class App extends Component {
   static properties = {
@@ -25,7 +28,11 @@ class App extends Component {
     return html`
       <div>
         <app-header></app-header>
-        <app-root><loading-spinner></loading-spinner></app-root>
+        <app-root animation="reveal"
+          ><div class="splash-screen">
+            Welcome!<br />Wait a second...
+          </div></app-root
+        >
       </div>
     `
   }
