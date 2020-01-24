@@ -1,29 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="//demo.productionready.io/main.css" />
+    <link
+      href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      .splash-screen {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #5cb85c;
+        color: white;
+        text-align: center;
+        padding-top: 40vh;
+        font-weight: 300;
+        font-size: 46px;
+        z-index: 999;
+      }
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//demo.productionready.io/main.css">
-  <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
-  <link
-    href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic"
-    rel="stylesheet" type="text/css">
-  <!--
-      Notice the use of %PUBLIC_URL% in the tag above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+      .reveal-leave-active {
+        clip-path: circle(75%);
+        transition: clip-path 1s;
+        transition-delay: 0.5s;
+      }
 
-      Unlike "/favicon.ico" or "favico.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <title>Conduit</title>
-<link rel="shortcut icon" href="favicon.ico"></head>
+      .reveal-leave-to {
+        clip-path: circle(0%);
+      }
+    </style>
+    <title>Conduit</title>
+  <link rel="shortcut icon" href="favicon.ico"></head>
 
-<body>
-  <div id="root"></div>
-  <!--
+  <body>
+    <div id="root"></div>
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -33,6 +54,5 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
-<script type="text/javascript" src="main.js"></script></body>
-
+  <script type="text/javascript" src="main.js"></script></body>
 </html>
