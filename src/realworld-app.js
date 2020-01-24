@@ -1,7 +1,21 @@
 import { Component, html } from './components/base'
-import { AnimatedOutlet } from 'slick-router/components/animated-outlet'
+import {
+  AnimatedOutlet,
+  GenericCSS,
+  registerAnimation
+} from 'slick-router/components/animated-outlet'
 
 import './components/app-header'
+
+class RevealAnimation extends GenericCSS {
+  leave(outlet, el, done) {
+    super.leave(outlet, el, done)
+    // run animation once
+    outlet.removeAttribute('animation')
+  }
+}
+
+registerAnimation('reveal', RevealAnimation)
 
 customElements.define('app-root', AnimatedOutlet)
 
@@ -25,14 +39,15 @@ class App extends Component {
   }
 
   render() {
+    const token = this.stores.commonStore.token
     return html`
       <div>
         <app-header></app-header>
-        <app-root animation="reveal"
-          ><div class="splash-screen">
-            Welcome!<br />Wait a second...
-          </div></app-root
-        >
+        <app-root animation="reveal">
+          <div class="splash-screen">
+            Welcome${token ? ' back' : ''}!<br />Wait a second...
+          </div>
+        </app-root>
       </div>
     `
   }

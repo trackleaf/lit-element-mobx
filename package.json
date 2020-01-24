@@ -31,7 +31,7 @@
     "marked": "^0.8.0",
     "mobx": "^5.15.2",
     "promise-prototype-finally": "^1.0.0",
-    "slick-router": "^2.5.0",
+    "slick-router": "^2.5.1",
     "superagent": "^5.2.1",
     "wc-context": "^0.9.0"
   },
