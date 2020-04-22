@@ -5,53 +5,57 @@
 ```html
 <app-header>
   <nav class="navbar navbar-light">
-    <div class="container">
-      <stencil-route-link
+    <div
+      class="container"
+      routerlinks=""
+    >
+      <a
         class="navbar-brand"
-        url="/"
+        route="home"
       >
         conduit
-      </stencil-route-link>
+      </a>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/"
+          <a
+            class="nav-link"
+            route="home"
           >
             Home
-          </stencil-route-link>
+          </a>
         </li>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/editor"
+          <a
+            class="nav-link"
+            route="editor"
           >
             <i class="ion-compose">
             </i>
             New Post
-          </stencil-route-link>
+          </a>
         </li>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/settings"
+          <a
+            class="nav-link"
+            route="settings"
           >
             <i class="ion-gear-a">
             </i>
             Settings
-          </stencil-route-link>
+          </a>
         </li>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/@blikblum"
+          <a
+            class="nav-link"
+            param-username="blikblum"
+            route="profile"
           >
             <img
               alt=""
               class="user-pic"
             >
             blikblum
-          </stencil-route-link>
+          </a>
         </li>
       </ul>
     </div>
@@ -65,37 +69,40 @@
 ```html
 <app-header>
   <nav class="navbar navbar-light">
-    <div class="container">
-      <stencil-route-link
+    <div
+      class="container"
+      routerlinks=""
+    >
+      <a
         class="navbar-brand"
-        url="/"
+        route="home"
       >
         conduit
-      </stencil-route-link>
+      </a>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/"
+          <a
+            class="nav-link"
+            route="home"
           >
             Home
-          </stencil-route-link>
+          </a>
         </li>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/login"
+          <a
+            class="nav-link"
+            route="login"
           >
             Sign in
-          </stencil-route-link>
+          </a>
         </li>
         <li class="nav-item">
-          <stencil-route-link
-            anchor-class="nav-link"
-            url="/register"
+          <a
+            class="nav-link"
+            route="register"
           >
             Sign up
-          </stencil-route-link>
+          </a>
         </li>
       </ul>
     </div>

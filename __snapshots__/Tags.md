@@ -3,25 +3,34 @@
 #### `with tags as array of string`
 
 ```html
-<div class="tag-list">
-  <stencil-route-link
-    anchor-class="tag-default tag-pill"
-    url="/?tab=tag&tag=sugar"
+<div
+  class="tag-list"
+  routerlinks=""
+>
+  <a
+    class="tag-default tag-pill"
+    query-tab="tag"
+    query-tag="sugar"
+    route="home"
   >
     sugar
-  </stencil-route-link>
-  <stencil-route-link
-    anchor-class="tag-default tag-pill"
-    url="/?tab=tag&tag=clear"
+  </a>
+  <a
+    class="tag-default tag-pill"
+    query-tab="tag"
+    query-tag="clear"
+    route="home"
   >
     clear
-  </stencil-route-link>
-  <stencil-route-link
-    anchor-class="tag-default tag-pill"
-    url="/?tab=tag&tag=test"
+  </a>
+  <a
+    class="tag-default tag-pill"
+    query-tab="tag"
+    query-tag="test"
+    route="home"
   >
     test
-  </stencil-route-link>
+  </a>
 </div>
 
 ```
